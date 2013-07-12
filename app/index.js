@@ -18,13 +18,23 @@ var routes = require('./routes')(app);
 var harvester = require('./tools/harvester');
 
 //sockets
+var clientTimers = {};
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
 
 	getPictures(socket);
+	
 	var timer = setInterval(function() {
 		getPictures(socket);
 	}, 10000);
+
+	clientTimers[socket.id] = timer;
+
+	socket.on('disconnect', function() {
+		console.log('client disconnected');
+		var timerId = clientTimers[socket.id];
+		clearInterval(timerId);
+	});
 
 });
 

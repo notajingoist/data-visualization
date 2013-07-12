@@ -8,8 +8,6 @@
 	urlArgs: "bust=" +  (new Date()).getTime(),
  */
 
- // Plugins
- //"tpl": "plugins/require.tpl"
  // nodes: "src/nodes",
  // account: 'src/nodes/account',
  // articles: 'src/nodes/articles',
