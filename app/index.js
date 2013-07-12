@@ -1,5 +1,5 @@
 /**
- * @name App
+ * @name Data Visualization App
  */
 
 var express = require('express');

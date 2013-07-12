@@ -1,16 +1,25 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-
 @import "compass/css3";
 @import "compass/reset";
+
+* {
+	@include box-sizing(border-box);
+}
 
 body {
 	color: #665;
 	font: normal 100%/1.5 sans-serif;
+	margin: 0 auto;
+	max-width: 960px;
+	padding: 10px 20px;
+	width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
 	color: #222;
+	font-size: 54px;
+}
+
+h2, h3, h4, h5, h6 {
+	color: #bbb;
+	font-size: 32px;
 }
