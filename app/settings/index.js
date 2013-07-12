@@ -1,7 +1,7 @@
 var express = require('express');
 
-var views = __dirname + '/../../pages',
-	static_root = __dirname + '/../../public';
+var views = __dirname + '/../../pages';
+var static_root = __dirname + '/../../public';
 
 var app_info = require(__dirname + '/../../package.json');
 

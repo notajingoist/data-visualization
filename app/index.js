@@ -1,6 +1,6 @@
 /**
  * @name App
-	*/
+ */
 
 var express = require('express');
 var http = require('http');
@@ -17,10 +17,8 @@ io.sockets.on('connection', function (socket) {
 	socket.emit('update', "Yayyy");
 });
 
-//routes (from pages)
-app.get('/', function(req, res) {
-	res.render('index');
-});
+//routes
+require('./routes')(app);
 
 //boot
 server.listen(app.get('port'), function(){
