@@ -5,3 +5,12 @@
 
 @import "compass/css3";
 @import "compass/reset";
+
+body {
+	color: #665;
+	font: normal 100%/1.5 sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	color: #222;
+}

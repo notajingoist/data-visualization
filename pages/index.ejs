@@ -8,10 +8,17 @@
 </head>
 <body>
 
-	<p>Hiii</p>
+<h1>Index</h2>
+<p>Hiii</p>
 	
-<!-- Scripts -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost');
+  socket.on('update', function (data) {
+    console.log(data);
+    // socket.emit('my other event', { my: 'data' });
+  });
+</script>
 <!-- <script src="/socket.io/socket.io.js"></script> -->
 <script data-main="js/setup" src="/js/vendor/require.js"></script>
 <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->

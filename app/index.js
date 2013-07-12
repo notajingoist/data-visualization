@@ -1,26 +1,28 @@
-var express = require('express'),
-	// routes = require('./routes'),
-	//user = require('./routes/user'),
-	http = require('http'),
-	// path = require('path'),
-	socket = require('socket.io');
+/**
+ * @name App
+	*/
 
-var app = express();
+var express = require('express');
+var http = require('http');
+var app = module.exports = express();
+var server = http.createServer(app);
 app.set('port', process.env.PORT || 9292);
 
+//configuration
 require('./settings')(app);
 
+//sockets
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function (socket) {
+	socket.emit('update', "Yayyy");
+});
+
+//routes (from pages)
 app.get('/', function(req, res) {
 	res.render('index');
 });
 
-
-// app.get('/', routes.index);
-// exports.index = function(req, res){
-//   res.render('index', { title: 'Express' });
-// };
-//app.get('/users', user.list);
-
-http.createServer(app).listen(app.get('port'), function(){
+//boot
+server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
