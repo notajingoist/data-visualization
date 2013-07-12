@@ -23,6 +23,7 @@ requirejs.config({
 		backbone: "vendor/backbone",
 		jquery: "vendor/jquery",
 		underscore: "vendor/underscore",
+		socketio: "../../socket.io/socket.io",
 		three: "vendor/three",
 		d3: "vendor/d3",
 
@@ -44,11 +45,14 @@ requirejs.config({
 		backbone: {
 			deps: ['jquery', 'underscore'],
 			exports: "Backbone"
+		},
+		socketio: {
+			exports: 'io'
 		}
 	}
 });
 
 require(['application'], function(App){
-	console.log(App);
+	//console.log(App);
 	Backbone.history.start();
 });

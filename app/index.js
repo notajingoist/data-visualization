@@ -11,14 +11,26 @@ app.set('port', process.env.PORT || 9292);
 //configuration
 require('./settings')(app);
 
+//routes
+var routes = require('./routes')(app);
+
+//tools (harvester)
+var harvester = require('./tools/harvester');
+
 //sockets
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
-	socket.emit('update', "Yayyy");
+
+	getPictures(socket);
+	var timer = setInterval(function() {
+		getPictures(socket);
+	}, 10000);
+
 });
 
-//routes
-require('./routes')(app);
+var getPictures = function(socket) {
+	socket.emit('update', "Yayyy");
+}
 
 //boot
 server.listen(app.get('port'), function(){

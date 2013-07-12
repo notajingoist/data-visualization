@@ -15,7 +15,8 @@
 */
 
 define([
-	'backbone'
+	'backbone',
+	'socketio'
 ], function(Backbone) {
 
 	var Application = Backbone.View.extend({
@@ -23,11 +24,25 @@ define([
 		el: document.body,
 
 		initialize: function() {
+
+			this.connectSocket();
+
+
 			// this.account = new Account();
 			// this.articles = new Articles();
 			// this.chrome = new Chrome({
 			// 	model: this.account.user
 			// });
+		},
+
+		connectSocket: function() {
+			//socket.io
+			var socket = io.connect('http://localhost');
+
+			socket.on('update', function (data) {
+			 	console.log(data);
+				//socket.emit('my other event', { my: 'data' });
+			});
 		}
 
 	});
