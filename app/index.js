@@ -27,7 +27,7 @@ io.sockets.on('connection', function (socket) {
 	var timer = setInterval(function() {
 		getPictures(socket);
 		//socket.emit('updateInstagramPictures', 'Yayyy');
-	}, 10000);
+	}, 2000);
 
 	clientTimers[socket.id] = timer;
 
