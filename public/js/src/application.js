@@ -16,18 +16,17 @@
 
 define([
 	'backbone',
-	'socketio'
-], function(Backbone) {
+	'socketio',
+	'views/gallery'
+], function(Backbone, io, Gallery) {
 
 	var Application = Backbone.View.extend({
 
 		el: document.body,
 
 		initialize: function() {
-
+			this.gallery = new Gallery();
 			this.connectSocket();
-
-
 			// this.account = new Account();
 			// this.articles = new Articles();
 			// this.chrome = new Chrome({
@@ -38,9 +37,13 @@ define([
 		connectSocket: function() {
 			//socket.io
 			var socket = io.connect('http://localhost');
-
-			socket.on('update', function (data) {
-			 	console.log(data);
+			var gallery = this.gallery;
+			socket.on('updateInstagramPictures', function (data) {
+				//gallery.render(data);
+			 	$.each(data, function(i, url) {
+			 		gallery.render(url);
+			 	});
+			 	//console.log('Instagram pics:\n', data);
 				//socket.emit('my other event', { my: 'data' });
 			});
 		}

@@ -15,7 +15,7 @@ require('./settings')(app);
 var routes = require('./routes')(app);
 
 //tools (harvester)
-var harvester = require('./tools/harvester');
+var instagram_harvester = require('./tools/instagram_harvester');
 
 //sockets
 var clientTimers = {};
@@ -26,6 +26,7 @@ io.sockets.on('connection', function (socket) {
 	
 	var timer = setInterval(function() {
 		getPictures(socket);
+		//socket.emit('updateInstagramPictures', 'Yayyy');
 	}, 10000);
 
 	clientTimers[socket.id] = timer;
@@ -38,8 +39,12 @@ io.sockets.on('connection', function (socket) {
 
 });
 
+
 var getPictures = function(socket) {
-	socket.emit('update', "Yayyy");
+	instagram_harvester.instagramPictures(function(data) {
+		//socket.emit('update', "Yayyy");
+		socket.emit('updateInstagramPictures', data);
+	});
 }
 
 //boot
