@@ -20,6 +20,8 @@ module.exports.instagramPictures = function(callback) {
 		var data = (body.data.map(function(inst) { 
 			return inst.images.standard_resolution.url; 
 		}));
+
+		console.log(body.data);
 		
 		callback(data);
 	});

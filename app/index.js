@@ -16,18 +16,26 @@ var routes = require('./routes')(app);
 
 //tools (harvester)
 var instagram_harvester = require('./tools/instagram_harvester');
+var tumblr_harvester = require('./tools/tumblr_harvester');
 
 //sockets
 var clientTimers = {};
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
 
-	getPictures(socket);
+	getTumblrPictures(socket);
 	
 	var timer = setInterval(function() {
-		getPictures(socket);
-		//socket.emit('updateInstagramPictures', 'Yayyy');
-	}, 2000);
+		getTumblrPictures(socket);
+	}, 3500);
+
+
+	// getInstagramPictures(socket);
+	
+	// var timer = setInterval(function() {
+	// 	getInstagramPictures(socket);
+	// 	//socket.emit('updateInstagramPictures', 'Yayyy');
+	// }, 2000);
 
 	clientTimers[socket.id] = timer;
 
@@ -40,11 +48,17 @@ io.sockets.on('connection', function (socket) {
 });
 
 
-var getPictures = function(socket) {
+var getInstagramPictures = function(socket) {
 	instagram_harvester.instagramPictures(function(data) {
 		//socket.emit('update', "Yayyy");
 		socket.emit('updateInstagramPictures', data);
 	});
+}
+
+var getTumblrPictures = function(socket) {
+	tumblr_harvester.tumblrPictures(function(data) {
+		socket.emit('updateTumblrPictures', data);
+	}, 'viget');
 }
 
 //boot

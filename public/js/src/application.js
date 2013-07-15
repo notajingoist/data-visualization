@@ -38,13 +38,19 @@ define([
 			//socket.io
 			var socket = io.connect('http://localhost');
 			var gallery = this.gallery;
-			socket.on('updateInstagramPictures', function (data) {
+			socket.on('updateInstagramPictures', function(data) {
 				//gallery.render(data);
 			 	$.each(data, function(i, url) {
 			 		gallery.render(url);
 			 	});
 			 	//console.log('Instagram pics:\n', data);
 				//socket.emit('my other event', { my: 'data' });
+			});
+
+			socket.on('updateTumblrPictures', function(data) {
+				$.each(data, function(i, url) {
+			 		gallery.render(url);
+			 	});
 			});
 		}
 
