@@ -1,4 +1,4 @@
-//Nate's Instagram harvester example
+//Tumblr Photo Harvester
 var request = require('request');
 var url = "http://api.tumblr.com/v2/tagged";
 var params = {

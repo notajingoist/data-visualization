@@ -17,21 +17,36 @@ var routes = require('./routes')(app);
 //tools (harvester)
 var instagram_harvester = require('./tools/instagram_harvester');
 var tumblr_harvester = require('./tools/tumblr_harvester');
+var tumblr_post_harvester = require('./tools/tumblr_post_harvester');
+var tumblr_reblog_harvester = require('./tools/tumblr_reblog_harvester');
 
 //sockets
 var clientTimers = {};
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
 
-	getTumblrPictures(socket);
-	
+	getTumblrReblogPosts(socket);
 	var timer = setInterval(function() {
-		getTumblrPictures(socket);
+		getTumblrReblogPosts(socket);
 	}, 3500);
 
+	// getTumblrPhotoPosts(socket);
+	// var timer = setInterval(function() {
+	// 	getTumblrPhotoPosts(socket);
+	// }, 3500);
+
+	// getTumblrTextPosts(socket);
+	// var timer = setInterval(function() {
+	// 	getTumblrTextPosts(socket);
+	// }, 3500);
+
+	// getTumblrPictures(socket);
+	// var timer = setInterval(function() {
+	// 	getTumblrPictures(socket);
+	// }, 3500);
+// 
 
 	// getInstagramPictures(socket);
-	
 	// var timer = setInterval(function() {
 	// 	getInstagramPictures(socket);
 	// 	//socket.emit('updateInstagramPictures', 'Yayyy');
@@ -59,6 +74,24 @@ var getTumblrPictures = function(socket) {
 	tumblr_harvester.tumblrPictures(function(data) {
 		socket.emit('updateTumblrPictures', data);
 	}, 'viget');
+}
+
+var getTumblrPhotoPosts = function(socket) {
+	tumblr_post_harvester.tumblrPosts(function(data) {
+		socket.emit('updateTumblrPhotoPosts', data);
+	}, 'vigetinterns13', 'photo', {});
+}
+
+var getTumblrTextPosts = function(socket) {
+	tumblr_post_harvester.tumblrPosts(function(data) {
+		socket.emit('updateTumblrTextPosts', data);
+	}, 'notajingoist', 'text', { reblog_info: true });
+}
+
+var getTumblrReblogPosts = function(socket) {
+	tumblr_reblog_harvester.tumblrReblogPosts(function(data) {
+		socket.emit('updateTumblrReblogPosts', data);
+	}, 'notajingoist', 'photo', {});
 }
 
 //boot

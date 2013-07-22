@@ -31,12 +31,16 @@ h2, h3, h4, h5, h6 {
 
 p {
 	color: #999;
-	&:after {
+	&.subheader:after {
 		content: '';
 		display: block;
 		border-bottom: 2px dashed #665;
 		padding-bottom: 10px;
 	}
+}
+
+.block {
+	@extend .subheader:after;
 }
 
 #gallery {

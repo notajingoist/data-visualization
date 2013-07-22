@@ -51,8 +51,8 @@ requirejs.config({
 });
 
 require([
-		'application',
-		'views/gallery'
+		'views/gallery',
+		'application'
 ], function(App){
 	//console.log(App);
 	Backbone.history.start();

@@ -1,4 +1,4 @@
-//Nate's Instagram harvester example
+//Adapted from Nate's Instagram harvester example
 var request = require('request');
 var url = "https://api.instagram.com/v1/media/popular";
 var params = {

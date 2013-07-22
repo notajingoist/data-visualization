@@ -4,11 +4,23 @@ define(['backbone'], function(Backbone) {
 		el: $('#gallery'),
 
 		initialize: function() {
+			// this.collection = new Collection();
+			// this.listenTo(this.collection, {
+			// 	reset: this.render,
+			// 	add: this.addItem
+			// });
 		},
 
+		// render: function() {
+		// 	this.collection.each(this.addItem, this);
+		// 	return this;
+		// },
+
+		// addItem: function() {
+		// 	this.$el.append("<img>", { href: model.get('url')});
+		// }
+
 		render: function(url) {
-			//console.log('rendering...');
-			//this.$el.append('<p>' + url + '</p>');
 			var image = '<img src=\"' + url + '\">';
 			this.$el.append(image);
 			
@@ -23,6 +35,16 @@ define(['backbone'], function(Backbone) {
 
 			//console.log($('img'));
 			//setTimeout($('img').addClass('visible'));
+		},
+
+		renderText: function(text) {
+			var paragraph = '<p class="block">' + text + '</p>';
+			this.$el.append(paragraph);
+		},
+
+		renderLink: function(link) {
+			var link = '<a href="' + link + '"><p class="block">' + link + '</p></a>'
+			this.$el.append(link);
 		}
 
 	});
