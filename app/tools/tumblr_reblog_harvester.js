@@ -87,6 +87,7 @@ module.exports.tumblrReblogPosts = function(callback, user, postType, optional) 
 			});
 		})(i);
 		
+		//how to only go up to posts.length - 1?
 		$.when(reqs[0], reqs[1], reqs[2], reqs[3], reqs[4], reqs[5], 
 			reqs[6], reqs[7], reqs[8], reqs[9], reqs[10], reqs[11], 
 			reqs[12], reqs[13], reqs[14], reqs[15], reqs[16], reqs[17], 
