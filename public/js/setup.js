@@ -8,10 +8,12 @@
 	urlArgs: "bust=" +  (new Date()).getTime(),
  */
 
- // nodes: "src/nodes",
- // account: 'src/nodes/account',
- // articles: 'src/nodes/articles',
- // chrome: 'src/nodes/chrome',
+// nodes: "src/nodes",
+// account: 'src/nodes/account',
+// articles: 'src/nodes/articles',
+// chrome: 'src/nodes/chrome',
+// text: "vendor/text",
+// hbs: "vendor/hbs",
 
 requirejs.config({
 
@@ -30,7 +32,7 @@ requirejs.config({
 		collections: "src/collections",
 		routers: "src/routers",
 		views: "src/views",
-		templates: "src/templates",
+		templates: "src/templates"
 	},
 
 	shim: {
@@ -51,6 +53,9 @@ requirejs.config({
 });
 
 require([
+		'd3',
+		'models/post',
+		'collections/posts',
 		'views/gallery',
 		'application'
 ], function(App){

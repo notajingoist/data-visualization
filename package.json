@@ -20,6 +20,8 @@
     "ntwitter": "*",
     "tumblr.js": "*",
     "request": "~2.22.0",
-    "querystring": "~0.2.0"
+    "querystring": "~0.2.0",
+    "handlebars": "~1.0.12",
+    "hbs": "~2.3.1"
   }
 }
