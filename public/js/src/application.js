@@ -58,10 +58,10 @@ define([
 			});
 
 			socket.on('updateTumblrReblogPosts', function(data) {
-				console.log(data);
-				// $.each(data, function(i, post) {
-				// 	gallery.renderLink(post.url);
-				// });
+				//console.log(data);
+				$.each(data, function(i, post) {
+					gallery.renderLink(post.url);
+				});
 			});
 		}
 

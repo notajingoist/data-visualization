@@ -14,6 +14,7 @@ var postDatabase = {};
 var parsePost = function(post) {
 	return {
 		id: post.id,
+		url: post.post_url,
 		blog_name: post.blog_name,
 		reblogged_from_id: post.reblogged_from_id || '',
 		reblogged_from_name: post.reblogged_from_name || '',
@@ -50,8 +51,8 @@ module.exports.tumblrReblogPosts = function(callback, user, postType, optional) 
 	});
 
 	allPosts.done(function() {
-		console.log("POST DATABASE:", postDatabase);
-		//callback(responses);
+		//console.log("POST DATABASE:", postDatabase);
+		callback(postDatabase);
 	});
 
 }

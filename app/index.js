@@ -20,6 +20,8 @@ var tumblr_harvester = require('./tools/tumblr_harvester');
 var tumblr_post_harvester = require('./tools/tumblr_post_harvester');
 var tumblr_reblog_harvester = require('./tools/tumblr_reblog_harvester');
 
+var INTERVAL = 10000;
+
 //sockets
 var clientTimers = {};
 var io = require('socket.io').listen(server);
@@ -28,7 +30,7 @@ io.sockets.on('connection', function (socket) {
 	getTumblrReblogPosts(socket);
 	var timer = setInterval(function() {
 		getTumblrReblogPosts(socket);
-	}, 3500);
+	}, INTERVAL);
 
 	// getTumblrPhotoPosts(socket);
 	// var timer = setInterval(function() {
@@ -91,7 +93,7 @@ var getTumblrTextPosts = function(socket) {
 var getTumblrReblogPosts = function(socket) {
 	tumblr_reblog_harvester.tumblrReblogPosts(function(data) {
 		socket.emit('updateTumblrReblogPosts', data);
-	}, 'notajingoist', '', {});
+	}, 'notajingoist', '', { reblog_info: true });
 }
 
 //boot
