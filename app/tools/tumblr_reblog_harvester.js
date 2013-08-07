@@ -8,7 +8,7 @@ var params = {
 var qs = require('querystring');
 var $ = require('jquery');
 
-var TIMEOUT_INTERVAL = 15000;
+var TIMEOUT_INTERVAL = 15000; //not using right now
 var postDatabase = {};
 
 var parsePost = function(post) {
@@ -21,14 +21,16 @@ var parsePost = function(post) {
 	}
 }
 
+var postDatabase = [];
+
 module.exports.tumblrReblogPosts = function(callback, user, postType, optional) {
 	var allPosts = $.Deferred();
 
 	$.extend(params, optional);
+	//timeout: TIMEOUT_INTERVAL
 	request({
 		url: url + user + '.tumblr.com/posts/' + postType + '?' + qs.stringify(params, '&'),
-		json: true,
-		timeout: TIMEOUT_INTERVAL
+		json: true
 	}, function(error, response, body) {
 		if (error) {
 			console.log('CRAP');
@@ -41,14 +43,14 @@ module.exports.tumblrReblogPosts = function(callback, user, postType, optional) 
 			harvestedPosts.push(harvest(post.id, post.blog_name, postType));
 		});
 
-		$.when.apply($, harvestedPosts).done(function(responses) {
-			allPosts.resolve(responses);
+		$.when.apply($, harvestedPosts).done(function() {
+			allPosts.resolve();
 		});
 		
 	});
 
-	allPosts.done(function(responses) {
-		console.log("YAYYYYY:", responses);
+	allPosts.done(function() {
+		console.log("POST DATABASE:", postDatabase);
 		//callback(responses);
 	});
 
@@ -76,20 +78,16 @@ var harvest = function(id, name, postType, parent) {
 
 			if (parent) {
 				parent.children.push(post);
+			} else {
+				postDatabase.push(post);
 			}
 
 			var reblogPromises = recurse(post, postType);
 
 			$.when.apply($, [reblogPromises]).done(function() {
-				//if reblogPromise is not a dfd object, done callback executed immediately
-				// console.log('THIS IS THE POST:', post);
-				// console.log('THESE ARE THE CHILDREN:', post.children);
-				// if (post.children.length > 0) {
-				// 	console.log('THESE ARE THE CHILDREN\'S CHILDREN:', post.children[0].children);
-				// }
-				//blaaargh
-				console.log(post);
-				promise.resolve(post);
+				//console.log(post);
+				//promise.resolve(post);
+				promise.resolve();
 			});
 
 		}
@@ -108,9 +106,6 @@ var recurse = function(post, postType) {
 		dfd.resolve();
 		return dfd;
 	} else {
-		// var dfd = $.Deferred();
-		// dfd.resolve();
-		// return dfd;
 		return harvest(post.reblogged_from_id, post.reblogged_from_name, 
 			postType, post);
 	}

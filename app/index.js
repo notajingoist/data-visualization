@@ -91,7 +91,7 @@ var getTumblrTextPosts = function(socket) {
 var getTumblrReblogPosts = function(socket) {
 	tumblr_reblog_harvester.tumblrReblogPosts(function(data) {
 		socket.emit('updateTumblrReblogPosts', data);
-	}, 'notajingoist', 'text', {});
+	}, 'notajingoist', '', {});
 }
 
 //boot
