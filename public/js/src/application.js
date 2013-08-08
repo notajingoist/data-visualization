@@ -63,8 +63,8 @@ define([
 				//console.log(data);
 				$.each(data, function(i, postData) {
 					// gallery.renderLink(post.url);
-					// gallery.renderCircle(post.url);
-					//console.log(post);
+					//gallery.renderCircle(post.url);
+					console.log(postData);
 					var post = new Post(postData);
 					postsCollection.add(post);
 				});

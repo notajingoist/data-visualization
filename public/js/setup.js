@@ -53,7 +53,7 @@ requirejs.config({
 });
 
 require([
-		'd3',
+		'd3/d3',
 		'models/post',
 		'collections/posts',
 		'views/gallery',

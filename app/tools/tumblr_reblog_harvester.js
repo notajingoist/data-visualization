@@ -8,7 +8,7 @@ var params = {
 var qs = require('querystring');
 var $ = require('jquery');
 
-var TIMEOUT_INTERVAL = 15000; //not using right now
+//var TIMEOUT_INTERVAL = 3000; //not using right now
 var postDatabase = {};
 
 var parsePost = function(post) {
@@ -22,13 +22,12 @@ var parsePost = function(post) {
 	}
 }
 
-var postDatabase = [];
-
+//var postDatabase = [];
+var postDatabase = {};
 module.exports.tumblrReblogPosts = function(callback, user, postType, optional) {
 	var allPosts = $.Deferred();
 
 	$.extend(params, optional);
-	//timeout: TIMEOUT_INTERVAL
 	request({
 		url: url + user + '.tumblr.com/posts/' + postType + '?' + qs.stringify(params, '&'),
 		json: true
@@ -38,7 +37,7 @@ module.exports.tumblrReblogPosts = function(callback, user, postType, optional) 
 		}
 
 		var responsePosts = body.response.posts; //array of user's posts
-		
+
 		var harvestedPosts = [];
 		responsePosts.forEach(function(post, i) {
 			harvestedPosts.push(harvest(post.id, post.blog_name, postType));
@@ -76,11 +75,18 @@ var harvest = function(id, name, postType, parent) {
 			var postResp = body.response.posts[0];
 			post = parsePost(postResp);
 			post.children = [];
+			//post.child = '';
 
 			if (parent) {
 				parent.children.push(post);
-			} else {
-				postDatabase.push(post);
+				//parent.child = post.id;
+			} 
+
+			//postDatabase[post.id] = post;
+
+			else {
+				//postDatabase.push(post);
+				postDatabase[post.id] = post;
 			}
 
 			var reblogPromises = recurse(post, postType);

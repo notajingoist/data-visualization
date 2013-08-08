@@ -20,7 +20,7 @@ define([
 		},
 
 		addItem: function(post) {
-			//this.el.append('<img>', { href: post.get('link') });
+			//this.el.append('<img>', { href: post.get('url') });
 			this.$el.append('<a href="' + post.get('url') + '">' +
 				'<p>' + post.get('url') + '</p></a>');
 		},
@@ -58,7 +58,6 @@ define([
 		// },
 
 		renderCircle: function(link) {
-
 			// var diameter = 960,
 			// 	format = d3.format(",d"),
 			// 	color = d3.scale.category20c();
